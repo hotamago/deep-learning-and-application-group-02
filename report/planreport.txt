@@ -1,0 +1,153 @@
+Preprocess data: (Deadline: 17/04 24h - Thứ 4)
+1. Resize image
+	- Calibration -> Méo hình dạng vật thể
+	- Crop multi position:
+		- (_) -> left, center, right
+		- (|) -> top, center, botton
+		
+2. Balance data
+- Analytics balance location label
+
+
+3. Mixua data
+- OpenCV (để thêm noise + rotate image) ()
+	- Thêm noise  (A default value is often 5 percent.)
+	- Thêm rotate (0 -> 50)
+	
+
+4 -> Output for training (2 tập)
+
+https://huggingface.co/docs/huggingface_hub/guides/upload
+
+------------------------
+Model: (< 100m) (Deadline: 17/04 -> 20/04 24h - Thứ 7)
+	Case 1: input: tensor (batch size, n, n, 3)
+
+	Case 2: input: tensor (batch size, 3, n, n, 3)
+	(batch size, n, n, 3) (batch size, n, n, 3) (batch size, n, n, 3)
+		-> training 3 model: L, C, R
+
+		vote model
+			3 vector label
+		
+		Cộng all label -> 1 vector
+
+- model vote:
+	- input: vector label
+	- output: vector label
+
+Model will use:
+- resnet 50
+- ViT
+
+------------------------
+Training:
+- Split testcase -> suffer data -> split (training, test)
+
+- Cắt dữ liệu
+	- Thêm dữ liệu
+	- https://nttuan8.com/bai-2-deep-convolutional-gan-dcgan/
+	- Chỉnh learning rate for each label
+	
+	- L, R
+	- label(i) -> x, y (x > y) -> xóa label(i) (x)
+	- all label
+- label(i) -> label(j)
+- label(t) = n
+
+--------
+Thừa 3 ngày cho quản trị rủi do
+
+
+-------------
+Report
+-------------
+
+Report: DenseNet
+
+7 epoch - 1 hours
+Base model name: DenseNet121
+Model: Brach 3 image -> 3xDenseNet121 -> 256 Relu -> 10 sigmoid
+Trainable params: 24,707,394 (94.25 MB)
+Non-trainable params: 250,944 (980.25 KB)
+(50% Training, 50% Testing)
+Optimizers: Adam( Learning rate: 3e-4 )
+Batch size: 8
+Training: binary_accuracy: 0.8093 - loss: 0.4374
+Validation: val_binary_accuracy: 0.8384 - val_loss: 0.4314 (10%)
+Eval: binary_accuracy: 0.8069 - loss: 0.4353
+Device: GPU P100 16GB VRAM
+
+----------------
+
+Report: EfficientNetV2S
+
+7 epoch - 2 hours
+Base model name: EfficientNetV2S
+Model: Brach 3 image -> 3xEfficientNetV2S -> 256 Relu -> 10 sigmoid
+Trainable params: 65,146,290 (248.51 MB)
+Non-trainable params: 461,616 (1.76 MB)
+(50% Training, 50% Testing)
+Optimizers: Adam ( Learning rate: 3e-3 )
+Batch size: 8
+Training: binary_accuracy: 0.8044 - loss: 0.4411
+Validation: val_binary_accuracy: 0.8256 - val_loss: 0.4338 (10%)
+Eval: binary_accuracy: 0.7987 - loss: 0.4562
+Device: GPU P100 16GB VRAM
+
+----------------
+
+Report: EfficientNetV2S
+
+22 epoch - 30m (29m prepare buffer data - 1m training)
+Base model name: EfficientNetV2S
+Model:
+	- Brach 3 image
+	- 3xEfficientNetV2S (
+			include_top=True,
+			weights=None,
+			classes=256,
+			classifier_activation='relu',
+		)
+	- 256 Relu
+	- 10 sigmoid
+Trainable params: 65,146,290 (248.51 MB)
+Non-trainable params: 461,616 (1.76 MB)
+(50% Training, 50% Testing)
+Optimizers: Adam ( Learning rate: 3e-4 )
+Batch size: 16
+Training: binary_accuracy: Unknow - loss: Unknow
+Validation: val_binary_accuracy: Unknow - val_loss: Unknow (30%)
+Eval: binary_accuracy: 0.8233 - loss: 2.9728
+Device: TPU v3-8 330 GB Ram
+
+----------------
+
+Report: ViT
+
+14 epoch - 30m
+Base model name: ViT
+Model:
+	- Brach 3 image
+	- 3xViT (
+			image_size = (224, 224),
+			patch_size = 32,
+			num_classes = 1000,
+			dim = 1024,
+			depth = 6,
+			heads = 16,
+			mlp_dim = 2048,
+			dropout = 0.1,
+			emb_dropout = 0.1
+		)
+	- 256 Relu
+	- 10 sigmoid
+Trainable params: ??? (1.37 GB)
+Non-trainable params: ??? (??? MB)
+(50% Training, 50% Testing)
+Optimizers: Adam ( Learning rate: 3e-4 )
+Batch size: 8
+Training: binary_accuracy: 0.8250 - loss: 0.4171
+Validation: val_binary_accuracy: 0.8152 - val_loss: 0.4410 (30%)
+Eval: binary_accuracy: 0.8139 - loss: 0.4538
+Device: GPU P100 16GB VRAM
