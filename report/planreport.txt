@@ -82,23 +82,6 @@ Device: GPU P100 16GB VRAM
 
 Report: EfficientNetV2S
 
-7 epoch - 2 hours
-Base model name: EfficientNetV2S
-Model: Brach 3 image -> 3xEfficientNetV2S -> 256 Relu -> 10 sigmoid
-Trainable params: 65,146,290 (248.51 MB)
-Non-trainable params: 461,616 (1.76 MB)
-(50% Training, 50% Testing)
-Optimizers: Adam ( Learning rate: 3e-3 )
-Batch size: 8
-Training: binary_accuracy: 0.8044 - loss: 0.4411
-Validation: val_binary_accuracy: 0.8256 - val_loss: 0.4338 (10%)
-Eval: binary_accuracy: 0.7987 - loss: 0.4562
-Device: GPU P100 16GB VRAM
-
-----------------
-
-Report: EfficientNetV2S
-
 22 epoch - 30m (29m prepare buffer data - 1m training)
 Base model name: EfficientNetV2S
 Model:
@@ -118,7 +101,7 @@ Optimizers: Adam ( Learning rate: 3e-4 )
 Batch size: 16
 Training: binary_accuracy: Unknow - loss: Unknow
 Validation: val_binary_accuracy: Unknow - val_loss: Unknow (30%)
-Eval: binary_accuracy: 0.8233 - loss: 2.9728
+Eval: binary_accuracy: 0.8079 - AUC: 0.6602 - loss: 3.5929
 Device: TPU v3-8 330 GB Ram
 
 ----------------
@@ -149,5 +132,5 @@ Optimizers: Adam ( Learning rate: 3e-4 )
 Batch size: 8
 Training: binary_accuracy: 0.8250 - loss: 0.4171
 Validation: val_binary_accuracy: 0.8152 - val_loss: 0.4410 (30%)
-Eval: binary_accuracy: 0.8139 - loss: 0.4538
+Eval: binary_accuracy: 0.8139 - AUC: 0.7297 - loss: 0.4538
 Device: GPU P100 16GB VRAM
