@@ -1,2 +1,2 @@
 pip install -r requirements.txt
-call python model/getModel.py
+python model/getModel.py
