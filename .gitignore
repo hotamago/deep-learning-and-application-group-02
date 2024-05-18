@@ -1,5 +1,6 @@
 test.jpg
-implement/model/*
+implement/model/*.keras
+implement/model/*.h5
 dataset/
 datasetImage/
 # Byte-compiled / optimized / DLL files
