@@ -1,0 +1,1 @@
+call streamlit run main.py
