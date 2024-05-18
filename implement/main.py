@@ -132,5 +132,5 @@ with st.container():
         prediction = model.predict(np.expand_dims(image, axis=0))[0]
 
         st.image(uploaded_file, caption='Uploaded Image.', use_column_width=True)
-        st.write('Prediction: ', prediction)
-        st.write('Label: ', applyLogicLabel(convertBinVec2LabelList(decodePredict2BinVec(prediction))))
+        st.write('Prediction: ', str(prediction))
+        st.write('Label: ', convertBinVec2LabelList(applyLogicLabel(decodePredict2BinVec(prediction))))
