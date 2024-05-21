@@ -124,13 +124,17 @@ with st.container():
 
     # Image
     uploaded_file = st.file_uploader("Choose an image...", type="jpg")
-    if uploaded_file is not None:
+    if uploaded_file is not None:        
         image = tf.io.decode_image(uploaded_file.getvalue(), channels=3).numpy()
         image = resize_image_reduce_size(image, 128)
         image = crop2nimage(image, 3)[1]
         image = torchNormalize(image, [0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         prediction = model.predict(np.expand_dims(image, axis=0))[0]
 
-        st.image(uploaded_file, caption='Uploaded Image.', use_column_width=True)
-        st.write('Prediction: ', str(prediction))
-        st.write('Label: ', convertBinVec2LabelList(applyLogicLabel(decodePredict2BinVec(prediction))))
+        # 2 columns layout, with size ratio 2:1
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            st.image(uploaded_file, caption='Uploaded Image.', use_column_width=True)
+        with col2:
+            st.write('Prediction: ', str(prediction))
+            st.write('Label: ', convertBinVec2LabelList(applyLogicLabel(decodePredict2BinVec(prediction))))
