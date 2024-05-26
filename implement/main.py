@@ -111,8 +111,8 @@ def crop2nimage(image, nimage = 3):
             cropImages[i] = cv2.rotate(cropImages[i], cv2.ROTATE_90_COUNTERCLOCKWISE)
 
     # Convert color to RGB
-    for i in range(len(cropImages)):
-        cropImages[i] = cv2.cvtColor(cropImages[i], cv2.COLOR_BGR2RGB)
+    # for i in range(len(cropImages)):
+        # cropImages[i] = cv2.cvtColor(cropImages[i], cv2.COLOR_BGR2RGB)
         
     return cropImages
 
