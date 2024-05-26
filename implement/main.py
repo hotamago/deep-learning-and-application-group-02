@@ -111,8 +111,8 @@ def crop2nimage(image, nimage = 3):
             cropImages[i] = cv2.rotate(cropImages[i], cv2.ROTATE_90_COUNTERCLOCKWISE)
 
     # Convert color to RGB
-    # for i in range(len(cropImages)):
-        # cropImages[i] = cv2.cvtColor(cropImages[i], cv2.COLOR_BGR2RGB)
+    for i in range(len(cropImages)):
+        cropImages[i] = cv2.cvtColor(cropImages[i], cv2.COLOR_BGR2RGB)
         
     return cropImages
 
@@ -135,6 +135,7 @@ with st.container():
         # 2 columns layout, with size ratio 2:1
         col1, col2 = st.columns([1, 1])
         with col1:
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             st.image(image, caption='Uploaded Image.', use_column_width=True)
         with col2:
             st.write('Prediction: ', str(prediction))
